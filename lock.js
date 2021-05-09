@@ -1,9 +1,9 @@
 const awsIOT = require("aws-iot-device-sdk");
 
-const thingShadows = awsIOT.thingShadows({
-    keyPath: "/cert/client.key",
-    certPath: "/cert/client.crt",
-    caPath: "/cert/ca.crt",
+const thingShadows = awsIOT.thingShadow({
+    keyPath: "cert/client.key",
+    certPath: "cert/client.crt",
+    caPath: "cert/ca.crt",
     clientId: "ARAMCO-IOT-API",
     host: "a1rkn3nakoy20t-ats.iot.us-east-1.amazonaws.com"
 });
@@ -13,11 +13,11 @@ let clientTokenUpdate;
 console.log("Start IOT device !!!!");
 thingShadows.on('connect', function () {
     console.log("Start Conx");
-    thingShadows.register("myDoorLock", {}, function () {
+    thingShadows.register("ARAMCO-IOT-API-ST", {}, function () {
         const myDoorLock = {
             "state": { "desired": { "locked": false } }
         };
-        clientTokenUpdate = thingShadows.update('myDoorLock', myDoorLock);
+        clientTokenUpdate = thingShadows.update('ARAMCO-IOT-API-ST', myDoorLock);
     });
 });
 
