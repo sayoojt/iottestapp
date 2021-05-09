@@ -1,4 +1,7 @@
 const awsIOT = require("aws-iot-device-sdk");
+const readline = require("readline");
+readline.emitKeypressEvents(process.stdin);
+process.stdin.setRawMode(true);
 
 const thingShadows = awsIOT.thingShadow({
     keyPath: "cert/client.key",
@@ -50,5 +53,32 @@ thingShadows.on("status",
             JSON.stringify(stateObject));
     }
 );
+
+process.stdin.on("keypress", (str, key) => {
+
+    if (key.ctrl && key.name === "c") {
+        process.exit();
+    }
+    else {
+        switch (key.name) {
+            case "u":
+                console.log("unlock");
+                const myDoorLock = { "state": { "desired": { "locked": false } } };
+                clientTokenUpdate = thingShadows.update('ARAMCO-IOT-API-ST', myDoorLock);
+                break;
+            case "l":
+                console.log("lock");
+                const myDoorLock = { "state": { "desired": { "locked": true } } };
+                clientTokenUpdate = thingShadows.update('ARAMCO-IOT-API-ST', myDoorLock);
+                break;
+            default:
+                console.log("Not Applicable");
+                console.log(key);
+                break;
+        }
+
+    }
+
+});
 
 
