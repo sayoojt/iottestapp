@@ -17,6 +17,22 @@ thingShadows
         console.log('error', error);
     });
 
+thingShadows
+    .on('delta', function (thingName, stateObject) {
+        console.log('received delta on ' + thingName + ': ' +
+            JSON.stringify(stateObject));
+        thingShadows.update(thingName, {
+            state: {
+                reported: stateObject.state
+            }
+        });
+    });
+
+thingShadows
+    .on('timeout', function (thingName, clientToken) {
+        console.warn('timeout: ' + thingName + ', clientToken=' + clientToken);
+    });
+
 thingShadows.on('connect', function () {
     console.log("Start Conx");
     thingShadows.register("ARAMCO-IOT-API-ST", {}, function () {
