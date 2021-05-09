@@ -12,7 +12,7 @@ const thingShadows = awsIOT.thingShadow({
 });
 
 let clientTokenUpdate;
-
+let counter = 0;
 console.log("Start IOT device !!!!");
 
 thingShadows
@@ -40,7 +40,7 @@ thingShadows.on('connect', function () {
     console.log("Start Conx");
     thingShadows.register("ARAMCO-IOT-API-ST", {}, function () {
         let myDoorLock = {
-            "state": { "desired": { "locked": false } }
+            "state": { "desired": { "locked": false, "counter": counter } }
         };
         clientTokenUpdate = thingShadows.update('ARAMCO-IOT-API-ST', myDoorLock);
     });
@@ -67,8 +67,9 @@ process.stdin.on("keypress", (str, key) => {
                 clientTokenUpdate = thingShadows.update('ARAMCO-IOT-API-ST', myDoorLock);
                 break;
             case "l":
+                counter++;
                 console.log("lock");
-                myDoorLock = { "state": { "desired": { "locked": true } } };
+                myDoorLock = { "state": { "desired": { "locked": true, "counter": counter } } };
                 clientTokenUpdate = thingShadows.update('ARAMCO-IOT-API-ST', myDoorLock);
                 break;
             default:
