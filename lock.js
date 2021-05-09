@@ -39,7 +39,7 @@ thingShadows
 thingShadows.on('connect', function () {
     console.log("Start Conx");
     thingShadows.register("ARAMCO-IOT-API-ST", {}, function () {
-        const myDoorLock = {
+        let myDoorLock = {
             "state": { "desired": { "locked": false } }
         };
         clientTokenUpdate = thingShadows.update('ARAMCO-IOT-API-ST', myDoorLock);
@@ -55,7 +55,7 @@ thingShadows.on("status",
 );
 
 process.stdin.on("keypress", (str, key) => {
-
+    let myDoorLock = "";
     if (key.ctrl && key.name === "c") {
         process.exit();
     }
@@ -63,12 +63,12 @@ process.stdin.on("keypress", (str, key) => {
         switch (key.name) {
             case "u":
                 console.log("unlock");
-                const myDoorLock = { "state": { "desired": { "locked": false } } };
+                myDoorLock = { "state": { "desired": { "locked": false } } };
                 clientTokenUpdate = thingShadows.update('ARAMCO-IOT-API-ST', myDoorLock);
                 break;
             case "l":
                 console.log("lock");
-                const myDoorLock = { "state": { "desired": { "locked": true } } };
+                myDoorLock = { "state": { "desired": { "locked": true } } };
                 clientTokenUpdate = thingShadows.update('ARAMCO-IOT-API-ST', myDoorLock);
                 break;
             default:
