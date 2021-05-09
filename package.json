@@ -1,0 +1,22 @@
+{
+  "name": "iottestapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lock.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sayoojt/iottestapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sayoojt/iottestapp/issues"
+  },
+  "homepage": "https://github.com/sayoojt/iottestapp#readme",
+  "dependencies": {
+    "aws-iot-device-sdk": "^2.2.6"
+  }
+}
