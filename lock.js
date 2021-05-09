@@ -11,6 +11,12 @@ const thingShadows = awsIOT.thingShadow({
 let clientTokenUpdate;
 
 console.log("Start IOT device !!!!");
+
+thingShadows
+    .on('error', function (error) {
+        console.log('error', error);
+    });
+
 thingShadows.on('connect', function () {
     console.log("Start Conx");
     thingShadows.register("ARAMCO-IOT-API-ST", {}, function () {
@@ -24,7 +30,7 @@ thingShadows.on('connect', function () {
 //report the status, update , get and delete
 thingShadows.on("status",
     function (thingName, stat, clientToken, stateObject) {
-        console.log("Receieved " + state + " on " + thingName + " : " +
+        console.log("Receieved " + stat + " on " + thingName + " : " +
             JSON.stringify(stateObject));
     }
 );
